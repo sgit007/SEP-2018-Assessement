@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private CountDownTimer countDownTimer;
     boolean running;
-    long timeLeftInMilli = 7200000;
+    long timeLeftInMilli = 60000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -286,34 +286,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
         bookingRef = FirebaseDatabase.getInstance().getReference().child(Constant.BOOKING).child(mFirebaseUser.getUid());
-        bookingRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Booking currentBooking = dataSnapshot.getValue(Booking.class);
-                if (currentBooking != null) {
-                    String pid = getString(R.string.booking_extra_info) + currentBooking.getPid();
+        try {
+            bookingRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Booking currentBooking = dataSnapshot.getValue(Booking.class);
+                    if (currentBooking != null) {
+                        String pid = getString(R.string.booking_extra_info) + currentBooking.getPid();
 
-                    updateResultQRCodeInMain(currentBooking.getPid());
-                    bookingInfo.setText(pid);
+                        updateResultQRCodeInMain(currentBooking.getPid());
+                        bookingInfo.setText(pid);
 
-                    logoInMain.setVisibility(View.GONE);
-                    noCurrentBoooking.setVisibility(View.GONE);
+                        logoInMain.setVisibility(View.GONE);
+                        noCurrentBoooking.setVisibility(View.GONE);
 
-                    cancelButton.setVisibility(View.VISIBLE);
-                    bookingInfo.setVisibility(View.VISIBLE);
-                    currentQRCode.setVisibility(View.VISIBLE);
-                    timerView.setVisibility(View.VISIBLE);
+                        cancelButton.setVisibility(View.VISIBLE);
+                        bookingInfo.setVisibility(View.VISIBLE);
+                        currentQRCode.setVisibility(View.VISIBLE);
+                        timerView.setVisibility(View.VISIBLE);
 
-                    startStop();
+                        startStop();
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+            });
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -411,7 +415,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (running) {
             stopTimer();
         } else {
-//            startTimer();
+            startTimer();
         }
     }
 
@@ -420,27 +424,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         running = false;
     }
 
-//    private void startTimer() {
-//        countDownTimer = new CountDownTimer() {
-//            @Override
-//            public void onTick(long millisUntilFinished) {
-//                timeLeftInMilli = 1;
-//                updateTimer();
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//
-//            }
-//        }.start();
-//
-//        running = true;
-//    }
+    private void startTimer() {
+        countDownTimer = new CountDownTimer(timeLeftInMilli, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeLeftInMilli = 1;
+                updateTimer();
+            }
+
+            @Override
+            public void onFinish() {
+                cancelBooking();
+            }
+        }.start();
+
+        running = true;
+    }
 
     private void updateTimer() {
         int minute = (int) timeLeftInMilli / 60000;
         int second = (int) timeLeftInMilli % 60000 / 1000;
 
-        String timeLeftText;
+        String timeLeftText = "" + minute;
+        timeLeftText += ":";
+        if (second < 10) timeLeftText += "0";
+        timeLeftText += second;
+
+        timerView.setText(timeLeftText);
+
     }
 }
