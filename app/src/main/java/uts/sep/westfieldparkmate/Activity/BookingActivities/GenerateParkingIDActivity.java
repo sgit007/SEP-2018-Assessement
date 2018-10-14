@@ -31,8 +31,8 @@ public class GenerateParkingIDActivity extends AppCompatActivity {
         setContentView(R.layout.activity_generate_parking_id);
 
         iDtoUserView = (TextView) findViewById(R.id.parkingIDtoUser);
-        confirm = (Button) findViewById(R.id.confirmBookingButtoninGeneratePage);
-        backToMain = (Button) findViewById(R.id.backToMainButtoninGeneratePage);
+        confirm = (Button) findViewById(R.id.confirmInGenerate);
+        backToMain = (Button) findViewById(R.id.cancelBookingButtoninGreneratePage);
 
         levelParkingRef = FirebaseDatabase.getInstance().getReference().child(Constant.PARKINGLOTS);
 

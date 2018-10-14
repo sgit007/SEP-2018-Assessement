@@ -40,6 +40,7 @@
         android:layout_alignStart="@+id/feedback_et"
         android:fontFamily="@font/font1"
         android:textSize="17dp"
-        android:text="@string/send_user_data_to_us" />
+        android:text="@string/send_user_data_to_us"
+        android:layout_alignLeft="@+id/feedback_et" />
 
 </RelativeLayout>

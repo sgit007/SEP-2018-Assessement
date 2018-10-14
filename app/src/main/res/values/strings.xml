@@ -30,9 +30,9 @@
     <string name="todo">TODO</string>
     <string name="title_activity_system_admin">SystemAdminActivity</string>
     <string-array name="level">
-        <item>LV1</item>
-        <item>LV2</item>
-        <item>LV3</item>
+        <item>Level 1</item>
+        <item>Level 2</item>
+        <item>Level 3</item>
     </string-array>
 
     <string-array name="parking_lot">
@@ -49,44 +49,25 @@
     <string name="available">Available:</string>
     <string name="level">Level :</string>
     <string name="level_2">Level 2</string>
-
     <string name="level_1">Level 1</string>
-
     <string name="level_3">Level 3</string>
-
     <string name="number">Number</string>
-
     <string name="add">add</string>
-
     <string name="enter_feedback">Enter Feedback</string>
-
     <string name="submit_feedback">Submit Feedback</string>
-
     <string name="send_user_data_to_us">Send user data to us?</string>
-
     <string name="want_to_be_a_system_admin">Want to be a System Admin?</string>
-
     <string name="already_have_an_account_login">Already have an account? Login</string>
-
     <string name="sign_up">Sign Up</string>
-
     <string name="email">Email</string>
-
-
-    <string name="congratulations">Congratulations!</string>
-
-    <string name="parking_id">PID</string>
-
-    <string name="sample">101</string>
-
-    <string name="cancel">Cancel</string>
-
-    <string name="confirm_booking">Confirm Booking</string>
-
-    <string name="pid">pid</string>
-
-    <string name="time">03:00:00</string>
-
-    <string name="no_current_booking">No Current Booking</string>
     <string name="apply">Apply</string>
+    <string name="congratulations">Congratulations!</string>
+    <string name="parking_id">PID</string>
+    <string name="sample">101</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm_booking">Confirm Booking</string>
+    <string name="pid">pid</string>
+    <string name="time">03:00:00</string>
+    <string name="no_current_booking">No Current Booking</string>
+    <string name="available_todo">Available: </string>
 </resources>

@@ -5,11 +5,11 @@
     android:id="@+id/pidView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Activity.MainActivity"
     tools:layout_editor_absoluteY="81dp"
-    tools:showIn="@layout/app_bar_main"
-    android:orientation="vertical">
+    tools:showIn="@layout/app_bar_main">
 
 
     <LinearLayout
@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/westFieldImageInMain"/>
+            app:layout_constraintBottom_toTopOf="@+id/westFieldImageInMain" />
 
 
     </LinearLayout>
@@ -30,18 +30,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-    <ImageView
-        android:id="@+id/westFieldImageInMain"
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        app:srcCompat="@drawable/westfield3" />
 
         <ImageView
-            android:id="@+id/westFieldImageInMain2"
+            android:id="@+id/westFieldImageInMain"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
-            android:layout_weight="1"
             app:srcCompat="@drawable/westfield3" />
+
+        <ImageView
+            android:id="@+id/qrCodeImageViewInMain"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            app:srcCompat="@drawable/westfield3"
+            android:layout_gravity="center"/>
     </LinearLayout>
 
     <LinearLayout
@@ -53,25 +54,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/noCurrentBookingTextView"/>
+            app:layout_constraintBottom_toTopOf="@+id/noCurrentBookingTextView" />
 
 
     </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:orientation="horizontal">
-    <TextView
-    android:id="@+id/noCurrentBookingTextView"
-    android:layout_width="wrap_content"
-    android:layout_height="40dp"
-    android:fontFamily="@font/font1"
-    android:text="@string/no_current_booking"
-    android:textColor="@color/black"
-    android:layout_marginLeft="80dp"
-    android:textSize="25dp"/>
-    </LinearLayout>
 
+        <TextView
+            android:id="@+id/noCurrentBookingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+
+            android:fontFamily="@font/font1"
+            android:text="@string/no_current_booking"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -85,78 +89,92 @@
 
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-    <TextView
-        android:id="@+id/pidInMain"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginLeft="160dp"
-        android:fontFamily="@font/font1"
-        android:text="@string/pid"
-        android:textColor="@color/black"
-        android:textSize="25dp" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_gravity="center"
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/pidInMain"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/noCurrentBookingTextView"/>
+            android:layout_height="40dp"
+            android:fontFamily="@font/font1"
+            android:text="@string/pid"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
 
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-    <Button
-        android:id="@+id/cancelButtonInMain"
-        android:layout_width="129dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="68dp"
-        android:background="@color/black"
-        android:text="@string/cancel"
-        android:textColor="@color/white"
-        android:layout_marginLeft="120dp"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/westFieldImageInMain" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/noCurrentBookingTextView"/>
-
-
-    </LinearLayout>
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-    <TextView
-        android:id="@+id/timer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/time"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/timer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/time"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/noCurrentBookingTextView" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancelButtonInMain"
+            android:layout_width="129dp"
+            android:layout_height="50dp"
+
+            android:layout_marginBottom="68dp"
+            android:background="@color/black"
+            android:text="@string/cancel"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/westFieldImageInMain" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/noCurrentBookingTextView" />
+
+
+    </LinearLayout>
+
+
 </LinearLayout>

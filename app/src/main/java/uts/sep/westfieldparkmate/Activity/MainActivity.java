@@ -277,7 +277,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     String pid = getString(R.string.booking_extra_info) + currentBooking.getPid();
 
                     updateResultQRCodeInMain(currentBooking.getPid());
-                    bookingInfo.setText(pid);
+                    String space = " " + pid;
+                    bookingInfo.setText(space);
 
                     logoInMain.setVisibility(View.GONE);
                     noCurrentBoooking.setVisibility(View.GONE);
@@ -286,6 +287,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     bookingInfo.setVisibility(View.VISIBLE);
                     currentQRCode.setVisibility(View.VISIBLE);
                     timerView.setVisibility(View.VISIBLE);
+
 
                     running = false;
                     startTimer();
@@ -323,7 +325,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void updateResultQRCodeInMain(String pId) {
-        ImageView qrCode = (ImageView) findViewById(R.id.westFieldImageInMain);
+        ImageView qrCode = (ImageView) findViewById(R.id.qrCodeImageViewInMain);
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
             BitMatrix bitMatrix = multiFormatWriter.encode(pId, BarcodeFormat.QR_CODE, 400, 400);
@@ -378,6 +380,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         if (countDownTimer != null) {
                             countDownTimer.cancel();
                             mTimeLeftInMilles = START_TIME_IN_MILLIS;
+                            running = false;
                         }
 
                     }
