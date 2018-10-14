@@ -13,7 +13,7 @@
         android:id="@+id/LV1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="LV1"
+        android:text="@string/level_1"
         app:layout_constraintBaseline_toBaselineOf="@+id/LV1Capa"
         app:layout_constraintEnd_toEndOf="@+id/LV2"
         app:layout_constraintStart_toStartOf="@+id/LV2" />
@@ -22,7 +22,7 @@
         android:id="@+id/LV2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="LV2"
+        android:text="@string/level_2"
         app:layout_constraintBaseline_toBaselineOf="@+id/LV2Capa"
         app:layout_constraintEnd_toEndOf="@+id/LV3"
         app:layout_constraintStart_toStartOf="@+id/LV3" />
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="64dp"
         android:layout_marginStart="64dp"
-        android:text="LV3"
+        android:text="@string/level_3"
         app:layout_constraintBaseline_toBaselineOf="@+id/LV3Capa"
         app:layout_constraintStart_toStartOf="parent" />
 

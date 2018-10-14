@@ -323,7 +323,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void updateResultQRCodeInMain(String pId) {
-        ImageView qrCode = (ImageView) findViewById(R.id.qrCodeImageViewInMain);
+        ImageView qrCode = (ImageView) findViewById(R.id.westFieldImageInMain);
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
             BitMatrix bitMatrix = multiFormatWriter.encode(pId, BarcodeFormat.QR_CODE, 400, 400);
