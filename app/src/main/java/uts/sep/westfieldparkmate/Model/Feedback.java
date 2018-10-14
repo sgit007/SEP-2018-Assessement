@@ -2,23 +2,23 @@ package uts.sep.westfieldparkmate.Model;
 
 public class Feedback {
 
-    private String feeekback;
+    private String feedback;
     private String user;
 
-    public Feedback(String feeekback, String user) {
-        this.feeekback = feeekback;
+    public Feedback(String feedback, String user) {
+        this.feedback = feedback;
         this.user = user;
     }
 
     public Feedback() {
     }
 
-    public String getFeeekback() {
-        return feeekback;
+    public String getFeedback() {
+        return feedback;
     }
 
-    public void setFeeekback(String feeekback) {
-        this.feeekback = feeekback;
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
     }
 
     public String getUser() {
@@ -27,5 +27,10 @@ public class Feedback {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public String toString()
+    {
+        return feedback + " " + user;
     }
 }

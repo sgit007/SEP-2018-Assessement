@@ -63,6 +63,14 @@
           }
         },
         {
+          "client_id": "966007452175-4d1cp97c4ah0f638jh65mqe69quh4n76.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uts.sep.westfieldparkmate",
+            "certificate_hash": "e03c3bbc5978452ee734d2e112453337f26e1ff7"
+          }
+        },
+        {
           "client_id": "966007452175-895q4oqnv00al6d079jrp1s4748oendg.apps.googleusercontent.com",
           "client_type": 3
         }

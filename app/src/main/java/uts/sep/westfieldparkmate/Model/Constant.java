@@ -1,5 +1,7 @@
 package uts.sep.westfieldparkmate.Model;
 
+import uts.sep.westfieldparkmate.R;
+
 public class Constant {
 
     public static final String TAG = "TAG";

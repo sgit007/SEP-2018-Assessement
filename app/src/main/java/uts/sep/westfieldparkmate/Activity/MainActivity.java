@@ -56,6 +56,8 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.util.Locale;
+
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -78,7 +80,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private CountDownTimer countDownTimer;
     boolean running;
-    long timeLeftInMilli = 60000;
+    private final static long START_TIME_IN_MILLIS = 60000;
+    private long mTimeLeftInMilles = START_TIME_IN_MILLIS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -209,7 +212,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -247,25 +249,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    private Fragment getFragments(String status) {
-        switch (status) {
-            case "Update":
-                return null;
-            default:
-                return null;
-        }
-
-    }
-
-    private void changeFragments(String status) {
-        // Create new fragment and transaction
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, getFragments(status));
-        transaction.addToBackStack(null);
-        // Commit the transaction
-        transaction.commit();
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -286,38 +269,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
         bookingRef = FirebaseDatabase.getInstance().getReference().child(Constant.BOOKING).child(mFirebaseUser.getUid());
-        try {
-            bookingRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Booking currentBooking = dataSnapshot.getValue(Booking.class);
-                    if (currentBooking != null) {
-                        String pid = getString(R.string.booking_extra_info) + currentBooking.getPid();
+        bookingRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Booking currentBooking = dataSnapshot.getValue(Booking.class);
+                if (currentBooking != null) {
+                    String pid = getString(R.string.booking_extra_info) + currentBooking.getPid();
 
-                        updateResultQRCodeInMain(currentBooking.getPid());
-                        bookingInfo.setText(pid);
+                    updateResultQRCodeInMain(currentBooking.getPid());
+                    bookingInfo.setText(pid);
 
-                        logoInMain.setVisibility(View.GONE);
-                        noCurrentBoooking.setVisibility(View.GONE);
+                    logoInMain.setVisibility(View.GONE);
+                    noCurrentBoooking.setVisibility(View.GONE);
 
-                        cancelButton.setVisibility(View.VISIBLE);
-                        bookingInfo.setVisibility(View.VISIBLE);
-                        currentQRCode.setVisibility(View.VISIBLE);
-                        timerView.setVisibility(View.VISIBLE);
+                    cancelButton.setVisibility(View.VISIBLE);
+                    bookingInfo.setVisibility(View.VISIBLE);
+                    currentQRCode.setVisibility(View.VISIBLE);
+                    timerView.setVisibility(View.VISIBLE);
 
-                        startStop();
-
-                    }
+                    running = false;
+                    startTimer();
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -328,7 +310,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         });
 
-        currentQRCode.setOnLongClickListener(new View.OnLongClickListener() {
+        currentQRCode.setOnLongClickListener(new View.OnLongClickListener()
+
+        {
             @Override
             public boolean onLongClick(View v) {
                 cancelBooking();
@@ -367,6 +351,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         cancelButton.setVisibility(View.GONE);
         bookingInfo.setVisibility(View.GONE);
         currentQRCode.setVisibility(View.GONE);
+        timerView.setVisibility(View.GONE);
         logoInMain.setVisibility(View.VISIBLE);
         noCurrentBoooking.setVisibility(View.VISIBLE);
 
@@ -376,7 +361,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Booking cancelBooking = dataSnapshot.getValue(Booking.class);
-                assert cancelBooking != null;
                 final String pid = cancelBooking.getPid();
 
                 parkingRef.addValueEventListener(new ValueEventListener() {
@@ -390,6 +374,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                         DatabaseReference tempRef2 = parkingRef.child(level).child(Constant.TRUE).child(pid);
                         tempRef2.setValue(parkingLot);
+
+                        if (countDownTimer != null) {
+                            countDownTimer.cancel();
+                            mTimeLeftInMilles = START_TIME_IN_MILLIS;
+                        }
 
                     }
 
@@ -425,15 +414,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void startTimer() {
-        countDownTimer = new CountDownTimer(timeLeftInMilli, 1000) {
+        countDownTimer = new CountDownTimer(mTimeLeftInMilles, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                timeLeftInMilli = 1;
+                mTimeLeftInMilles = millisUntilFinished;
                 updateTimer();
             }
 
             @Override
             public void onFinish() {
+                running = false;
                 cancelBooking();
             }
         }.start();
@@ -442,15 +432,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void updateTimer() {
-        int minute = (int) timeLeftInMilli / 60000;
-        int second = (int) timeLeftInMilli % 60000 / 1000;
+        int minute = (int) (mTimeLeftInMilles / 1000) / 60;
+        int second = (int) (mTimeLeftInMilles / 1000) % 60;
 
-        String timeLeftText = "" + minute;
-        timeLeftText += ":";
-        if (second < 10) timeLeftText += "0";
-        timeLeftText += second;
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minute, second);
 
-        timerView.setText(timeLeftText);
+
+        timerView.setText(timeLeftFormatted);
 
     }
 }
