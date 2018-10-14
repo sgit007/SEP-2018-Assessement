@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Activity.BookingActivities.BookingActivity"
+    tools:layout_editor_absoluteY="25dp"
+    tools:showIn="@layout/activity_booking">
+
+    <Button
+        android:id="@+id/LV1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LV1"
+        app:layout_constraintBaseline_toBaselineOf="@+id/LV1Capa"
+        app:layout_constraintEnd_toEndOf="@+id/LV2"
+        app:layout_constraintStart_toStartOf="@+id/LV2" />
+
+    <Button
+        android:id="@+id/LV2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LV2"
+        app:layout_constraintBaseline_toBaselineOf="@+id/LV2Capa"
+        app:layout_constraintEnd_toEndOf="@+id/LV3"
+        app:layout_constraintStart_toStartOf="@+id/LV3" />
+
+    <Button
+        android:id="@+id/LV3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="64dp"
+        android:layout_marginStart="64dp"
+        android:text="LV3"
+        app:layout_constraintBaseline_toBaselineOf="@+id/LV3Capa"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/LV1Capa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="158dp"
+        android:text="Available: TODO"
+        app:layout_constraintStart_toEndOf="@+id/LV1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/LV2Capa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginStart="35dp"
+        android:text="Available: TODO"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/LV2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/LV3Capa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="68dp"
+        android:text="Available: TODO"
+        app:layout_constraintStart_toEndOf="@+id/LV3"
+        app:layout_constraintTop_toBottomOf="@+id/LV2" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,95 @@
+{
+  "project_info": {
+    "project_number": "966007452175",
+    "firebase_url": "https://westfieldparkmate.firebaseio.com",
+    "project_id": "westfieldparkmate",
+    "storage_bucket": "westfieldparkmate.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:966007452175:android:ecf834db1e088b03",
+        "android_client_info": {
+          "package_name": "uts.sep.westfieldparkmate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "966007452175-u18uep9n7qca2iobpkgqrite2j5ucs7e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uts.sep.westfieldparkmate",
+            "certificate_hash": "6ad4b0560f74d6a9df7b8f94712fb6b66d8120a7"
+          }
+        },
+        {
+          "client_id": "966007452175-7v6blk632d2b9f3d02cogki7kmpukdur.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uts.sep.westfieldparkmate",
+            "certificate_hash": "473c355af8e75eacfc1bbde89f5b54d622e55258"
+          }
+        },
+        {
+          "client_id": "966007452175-fmoruavse781vu40b0uk4k7gh2peot4c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uts.sep.westfieldparkmate",
+            "certificate_hash": "ffdbf858f8fe2fac71b9081273159414eff9fb37"
+          }
+        },
+        {
+          "client_id": "966007452175-bofm67joa7nr5bgmbhb095k31drmppk9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uts.sep.westfieldparkmate",
+            "certificate_hash": "240b168810ea9deec269191a69992069029849fc"
+          }
+        },
+        {
+          "client_id": "966007452175-he3449i04gholdigmb2hg3eegi6aucgp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uts.sep.westfieldparkmate",
+            "certificate_hash": "36422f6fc64df6758d5c269a8e02dd2f7cc4bb39"
+          }
+        },
+        {
+          "client_id": "966007452175-dc06tmlf08qbvigjjbsb0vod0tt0ivvm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uts.sep.westfieldparkmate",
+            "certificate_hash": "fb8ac7170135bd3dc4d85c46272e82af443c9e14"
+          }
+        },
+        {
+          "client_id": "966007452175-895q4oqnv00al6d079jrp1s4748oendg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwgALLq2RMuB9y8SknumcjuSyQ2qIM2U8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "966007452175-895q4oqnv00al6d079jrp1s4748oendg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
