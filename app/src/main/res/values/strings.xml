@@ -30,9 +30,9 @@
     <string name="todo">TODO</string>
     <string name="title_activity_system_admin">SystemAdminActivity</string>
     <string-array name="level">
-        <item>Level 1</item>
-        <item>Level 2</item>
-        <item>Level 3</item>
+        <item>LV1</item>
+        <item>LV2</item>
+        <item>LV3</item>
     </string-array>
 
     <string-array name="parking_lot">

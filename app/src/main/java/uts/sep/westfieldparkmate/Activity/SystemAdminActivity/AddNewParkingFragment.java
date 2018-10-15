@@ -1,9 +1,11 @@
 package uts.sep.westfieldparkmate.Activity.SystemAdminActivity;
 
 
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +29,8 @@ import uts.sep.westfieldparkmate.Model.Constant;
 import uts.sep.westfieldparkmate.Model.ParkingLot;
 import uts.sep.westfieldparkmate.R;
 
+import static android.support.constraint.Constraints.TAG;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -34,6 +38,8 @@ public class AddNewParkingFragment extends Fragment {
     private Spinner spinnerLevel, spinnerParkingLot;
     private DatabaseReference parkingRef;
     boolean ifError = false;
+    EditText numberOfParkingLot;
+
     public AddNewParkingFragment() {
         // Required empty public constructor
     }
@@ -45,43 +51,56 @@ public class AddNewParkingFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_add_new_parking, container, false);
         // Inflate the layout for this fragment
         spinnerLevel = view.findViewById(R.id.spinner_level);
-        Log.d(Constant.TAG,"This is the spinner value");
-        Log.d(Constant.TAG,spinnerParkingLot.getSelectedItem().toString());
-        parkingRef = FirebaseDatabase.getInstance().getReference(Constant.PARKINGLOTS);
-        final EditText numberOfParkingLot = view.findViewById(R.id.get_number_for_parking_lots);
+        spinnerLevel.setSelection(0);
+        Log.d(Constant.TAG, "This is the spinner value");
+        parkingRef = FirebaseDatabase.getInstance().getReference().child(Constant.PARKINGLOTS);
+        numberOfParkingLot = view.findViewById(R.id.get_number_for_parking_lots);
+        numberOfParkingLot.setText("50");
         final Button addParkingBtn = (Button) view.findViewById(R.id.add_parking_btn);
-        final int newLevel = level();
+
+        final int newLevel = spinnerLevel.getSelectedItemPosition() + 1;
         addParkingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(numberOfParkingLot.getText().toString() != null && newLevel != 0 )
-                {
+                if (numberOfParkingLot.getText().toString() != null && newLevel != 0) {
                     String temp = numberOfParkingLot.getText().toString();
-                    int number = Integer.parseInt(temp);
-                    for(int i=0; i<number; i++)
-                    {
-                        String tempString = String.valueOf(i);
-                        ParkingLot newParking = new ParkingLot(tempString, true );
-                        parkingRef.setValue()
+                    if (temp != null) {
+                        int number = Integer.parseInt(temp);
+                        for (int i = 0; i < number; i++) {
+                            String level = spinnerLevel.getSelectedItem().toString();
+                            int pid = i + getLevel(level)*100;
+                            final String tempString = String.valueOf(pid);
+                            ParkingLot newParking = new ParkingLot(tempString, true);
+                            parkingRef.child(level).child(Constant.TRUE).child(String.valueOf(pid)).setValue(newParking, new DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                                    Log.d(TAG, "successful" + tempString);
+                                }
+                            });
+                        }
+
                     }
-
                 }
-                }
-
             }
-
-
+        });
         return view;
     }
 
-    private int level() {
-        Log.d(Constant.TAG,"at Level() current value is :"+spinnerLevel.getSelectedItemPosition());
-        return spinnerLevel.getSelectedItemPosition() + 1;
+    private int getLevel(String level) {
+        switch (level) {
+            case Constant.LV1: {
+                return 1;
+            }
+            case Constant.LV2: {
+                return 2;
+            }
+            case Constant.LV3: {
+                return 3;
 
+            }
+            default:
+                return 0;
+        }
     }
 
-    private String parkingLot() {
-        return spinnerParkingLot.getSelectedItem().toString();
-
-    }
 }

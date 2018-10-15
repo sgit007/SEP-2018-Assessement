@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected FirebaseAuth mAuth = null;
     protected FirebaseUser mFirebaseUser = null;
     private boolean isAdmin = false;
-
+    FloatingActionButton fab;
     private ImageView currentQRCode, logoInMain;
     private TextView noCurrentBoooking, bookingInfo;
     private Button cancelButton;
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences.Editor editor = shared.edit();
         if (isfer) {
             //because the first time launch this app, it does'nt contain a account in this app, so call loginActivity to ger an account
-            //if it is first time
+            //if it is firstm time
             Intent in = new Intent(MainActivity.this, SignUpActivity.class);
             startActivity(in);
             finish();
@@ -235,12 +235,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_logOut:
                 FirebaseAuth.getInstance().signOut();
                 finish();
-                startActivity(new Intent(this, SignUpActivity.class));
+                startActivity(new Intent(this, SignUpActivity.class));SharedPreferences shared = getSharedPreferences("is", MODE_PRIVATE);
+                boolean isfer = shared.getBoolean("isfer", true);
+                SharedPreferences.Editor editor = shared.edit();
+                editor.putBoolean("isfer", true);
+                editor.apply();
                 break;
             case R.id.nav_exit:
                 System.exit(0);
                 break;
             default:
+
                 return true;
         }
 
@@ -265,6 +270,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bookingInfo.setVisibility(View.GONE);
         currentQRCode.setVisibility(View.GONE);
         timerView.setVisibility(View.GONE);
+        fab.setVisibility(View.GONE);
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
@@ -328,7 +334,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ImageView qrCode = (ImageView) findViewById(R.id.qrCodeImageViewInMain);
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
-            BitMatrix bitMatrix = multiFormatWriter.encode(pId, BarcodeFormat.QR_CODE, 400, 400);
+            BitMatrix bitMatrix = multiFormatWriter.encode(pId, BarcodeFormat.QR_CODE, 600, 600);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
             qrCode.setImageBitmap(bitmap);
@@ -363,35 +369,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Booking cancelBooking = dataSnapshot.getValue(Booking.class);
-                final String pid = cancelBooking.getPid();
+                if (cancelBooking != null) {
+                    final String pid = cancelBooking.getPid();
 
-                parkingRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        ParkingLot parkingLot = new ParkingLot(pid, true);
-                        String level = getLevel(pid);
-                        assert level != null;
-                        DatabaseReference tempRef = parkingRef.child(level).child(Constant.FALSE).child(pid);
-                        tempRef.removeValue();
+                    parkingRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            ParkingLot parkingLot = new ParkingLot(pid, true);
+                            String level = getLevel(pid);
+                            assert level != null;
+                            DatabaseReference tempRef = parkingRef.child(level).child(Constant.FALSE).child(pid);
+                            tempRef.removeValue();
 
-                        DatabaseReference tempRef2 = parkingRef.child(level).child(Constant.TRUE).child(pid);
-                        tempRef2.setValue(parkingLot);
+                            DatabaseReference tempRef2 = parkingRef.child(level).child(Constant.TRUE).child(pid);
+                            tempRef2.setValue(parkingLot);
 
-                        if (countDownTimer != null) {
-                            countDownTimer.cancel();
-                            mTimeLeftInMilles = START_TIME_IN_MILLIS;
-                            running = false;
+                            if (countDownTimer != null) {
+                                countDownTimer.cancel();
+                                mTimeLeftInMilles = START_TIME_IN_MILLIS;
+                                running = false;
+                            }
+
                         }
 
-                    }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+                        }
+                    });
 
 
+                    bookingRef.removeValue();
+                }
             }
 
             @Override
@@ -400,7 +409,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        bookingRef.removeValue();
+
     }
 
     private void startStop() {

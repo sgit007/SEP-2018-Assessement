@@ -92,7 +92,7 @@ public class BookingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(BookingActivity.this, GenerateParkingIDActivity.class);
-                intent.putExtra(Constant.VALUE, "LV1");
+                intent.putExtra(Constant.VALUE, Constant.LV1);
                 startActivity(intent);
                 finish();
             }
@@ -101,7 +101,7 @@ public class BookingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(BookingActivity.this, GenerateParkingIDActivity.class);
-                intent.putExtra(Constant.VALUE, "LV2");
+                intent.putExtra(Constant.VALUE, Constant.LV2);
                 startActivity(intent);
                 finish();
             }
@@ -111,7 +111,7 @@ public class BookingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(BookingActivity.this, GenerateParkingIDActivity.class);
-                intent.putExtra(Constant.VALUE, "LV3");
+                intent.putExtra(Constant.VALUE, Constant.LV3);
                 startActivity(intent);
                 finish();
             }
